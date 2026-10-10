@@ -435,6 +435,16 @@ a:hover { color: var(--sdb-lift); }
   .tabs { gap: 0; margin-inline: -0.35rem; }
   .tabs__link { padding-inline: 0.5rem; font-size: 0.875rem; }
   .actions .btn { flex: 1 1 auto; justify-content: center; }
+
+  /* the nav wraps to two rows here, so the tick would land mid-stack.
+     mark the active tab inline instead. */
+  .tabs__link.is-current::after { display: none; }
+  .tabs__link.is-current {
+    background: rgba(22, 48, 122, 0.08);
+    text-decoration: underline;
+    text-decoration-color: var(--sdb);
+    text-underline-offset: 4px;
+  }
 }
 
 /* ---------- one orchestrated page-load moment ---------- */
