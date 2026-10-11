@@ -183,24 +183,42 @@ a:hover { color: var(--sdb-lift); }
   transform: translateX(-50%);
 }
 
-/* continuum + absorption lines, drawn entirely in CSS */
+/* continuum plus absorption lines of a hot subdwarf, drawn entirely in CSS.
+   Wavelength 3900-7000 A maps linearly to 0-100% width. Balmer lines are the
+   widest because they are pressure broadened at log g around 5.5, then He I,
+   He II, and sharp metal lines. */
 .spectrum {
-  height: 3px;
+  height: 7px;
   background-image:
-    repeating-linear-gradient(90deg,
-      rgba(10, 14, 22, 0.55) 0 1px,
-      transparent 1px 23px),
-    repeating-linear-gradient(90deg,
-      rgba(10, 14, 22, 0.3) 0 1px,
-      transparent 1px 7px),
-    linear-gradient(90deg,
-      var(--sdb) 0%,
-      var(--sdb-lift) 22%,
-      #9fb6e8 44%,
-      #e8e2d2 60%,
-      #e0a858 80%,
-      var(--companion) 100%);
-  opacity: 0.9;
+    radial-gradient(ellipse 1.097% 100% at 85.897% 50%, rgba(12,16,26,0.62) 0%, rgba(12,16,26,0.260) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 1.097% 100% at 31.010% 50%, rgba(12,16,26,0.7) 0%, rgba(12,16,26,0.294) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 1.097% 100% at 14.210% 50%, rgba(12,16,26,0.72) 0%, rgba(12,16,26,0.302) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 1.097% 100% at 6.506% 50%, rgba(12,16,26,0.7) 0%, rgba(12,16,26,0.294) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 1.097% 100% at 2.261% 50%, rgba(12,16,26,0.62) 0%, rgba(12,16,26,0.260) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 18.435% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 15.739% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 4.071% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 32.965% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 35.990% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 63.729% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 89.619% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 7.865% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.387% 100% at 26.229% 50%, rgba(12,16,26,0.34) 0%, rgba(12,16,26,0.143) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.323% 100% at 25.345% 50%, rgba(12,16,26,0.28) 0%, rgba(12,16,26,0.118) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.323% 100% at 48.758% 50%, rgba(12,16,26,0.28) 0%, rgba(12,16,26,0.118) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.323% 100% at 20.697% 50%, rgba(12,16,26,0.28) 0%, rgba(12,16,26,0.118) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 18.748% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 21.052% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 7.358% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 11.848% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 6.365% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 24.110% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 40.935% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 10.748% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 78.939% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    radial-gradient(ellipse 0.161% 100% at 36.806% 50%, rgba(12,16,26,0.2) 0%, rgba(12,16,26,0.084) 45%, rgba(12,16,26,0) 100%),
+    linear-gradient(90deg, #11307f 0%, #1f44a6 14%, #3a63c4 30%, #7497dc 46%, #b9c6de 60%, #ddd0b0 72%, #d8a861 85%, #c07617 100%);
+  opacity: 0.95;
 }
 
 /* ---------- hero ---------- */
@@ -454,14 +472,19 @@ a:hover { color: var(--sdb-lift); }
   border-bottom: 1px solid var(--rule);
 }
 .row:first-child { border-top: 1px solid var(--rule); }
-.row__when {
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  color: var(--ink-faint);
-  padding-top: 0.1rem;
+
+/* label and value share a font and line box so their first baselines line up.
+   No padding nudge: that is what threw the columns out of alignment. */
+.row__when,
+.row__what,
+.row__where {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
 }
-.row__what { font-weight: 600; margin: 0 0 0.15rem; font-size: 0.9375rem; }
-.row__where { margin: 0; color: var(--ink-soft); font-size: 0.9375rem; }
+.row__when { color: var(--ink-faint); }
+.row__what { font-weight: 600; margin-bottom: 0.15rem; }
+.row__where { color: var(--ink-soft); }
 
 /* inline stat strip */
 .stats {
