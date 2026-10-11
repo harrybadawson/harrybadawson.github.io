@@ -316,10 +316,13 @@ a:hover { color: var(--sdb-lift); }
 }
 
 /* figure with caption, used for the HRD */
+/* The image size is set HERE, by this column width, not by the width/height
+   attributes on the <img> tag. Those only give the browser the aspect ratio.
+   Change 38rem to resize the figure. */
 .figure {
   margin: 0;
   display: grid;
-  grid-template-columns: minmax(0, 27rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 38rem) minmax(0, 1fr);
   gap: clamp(1.25rem, 0.5rem + 2vw, 2.5rem);
   align-items: center;
 }
