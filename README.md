@@ -6,36 +6,48 @@ Personal academic site. Plain HTML and CSS — no build step, no dependencies.
 
 | File | What it is |
 |---|---|
-| `index.html` | About me (the landing page) |
-| `research.html` | Research |
-| `teaching.html` | Teaching & outreach |
+| `index.html` | About |
+| `research.html` | Research — HRD figure, the three-paper series |
+| `teaching.html` | Teaching and supervision |
 | `contact.html` | Contact |
 | `style.css` | All styling for every page |
-| `assets/Harry_Dawson_CV.pdf` | CV — **replace the placeholder with your real one** |
-| `.nojekyll` | Tells GitHub Pages to serve the files as-is |
+| `assets/harry-dawson-cv.pdf` | CV (copy of `~/phd/CV/harry-dawson-cv/main.pdf`) |
+| `assets/harry-dawson.jpg` | Portrait, cropped to 5:4 |
+| `assets/gaia-hrd.png` | Gaia HRD from the ESO research plan |
 
-## Preview locally before publishing
+## Iterating safely
+
+Work happens on the `draft` branch. `main` is what GitHub Pages publishes, so
+nothing goes live until you merge.
 
 ```bash
 ./preview.sh
 ```
 
-Then open <http://localhost:4173>. This serves from your own machine only —
-nothing is visible to anyone else. Edit a file, save, refresh the browser.
+Open <http://localhost:4173>. Served from this machine only — nobody else can see it.
+Edit, save, refresh.
 
-Stop it with Ctrl+C.
-
-## Publish
+When a round of changes looks right, publish:
 
 ```bash
-git add -A && git commit -m "Update site" && git push
+git checkout main && git merge draft && git push && git checkout draft
 ```
 
-Live within about a minute at <https://harrydawson.github.io>.
+That merges your reviewed work into `main`, pushes it live, and drops you back on
+`draft` to keep working.
+
+## Updating the CV
+
+The PDF in `assets/` is a copy, not a link — rebuild your CV, then:
+
+```bash
+cp ~/phd/CV/harry-dawson-cv/main.pdf ~/harrydawson.github.io/assets/harry-dawson-cv.pdf
+```
 
 ## Editing notes
 
-- Every placeholder is wrapped in `[square brackets]` — search for `[` to find them all.
-- The nav appears in all four HTML files. If you rename or add a tab, update it in each one.
-- The current tab is marked with `class="tabs__link is-current"` and `aria-current="page"`.
-- Colours and fonts are defined once at the top of `style.css` under `:root`.
+- The nav appears in all four HTML files. Renaming or adding a tab means editing each one.
+- The current tab is marked `class="tabs__link is-current"` plus `aria-current="page"`.
+- Colours, fonts and spacing are defined once at the top of `style.css` under `:root`.
+- `--ground` is the colour behind the page; `--paper` is the sheet itself.
+- Images need `height: auto` or the `width`/`height` attributes override `aspect-ratio`.
