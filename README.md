@@ -1,4 +1,4 @@
-# harrydawson.github.io
+# harrybadawson.github.io
 
 Personal academic site. Plain HTML and CSS — no build step, no dependencies.
 
@@ -41,7 +41,7 @@ That merges your reviewed work into `main`, pushes it live, and drops you back o
 The PDF in `assets/` is a copy, not a link — rebuild your CV, then:
 
 ```bash
-cp ~/phd/CV/harry-dawson-cv/main.pdf ~/harrydawson.github.io/assets/harry-dawson-cv.pdf
+cp ~/phd/CV/harry-dawson-cv/main.pdf ~/harrybadawson.github.io/assets/harry-dawson-cv.pdf
 ```
 
 ## Editing notes
