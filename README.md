@@ -6,7 +6,8 @@ Personal academic site. Plain HTML and CSS — no build step, no dependencies.
 
 | File | What it is |
 |---|---|
-| `index.html` | About |
+| `about-me.html` | About me. This is the real home page. |
+| `index.html` | A small redirect to `about-me.html`. GitHub Pages serves this at the bare domain, so it has to stay. |
 | `research.html` | Research — HRD figure, the three-paper series |
 | `teaching.html` | Teaching and supervision |
 | `contact.html` | Contact |

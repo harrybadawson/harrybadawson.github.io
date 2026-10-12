@@ -511,6 +511,19 @@ a:hover { color: var(--sdb-lift); }
   font-variation-settings: "SOFT" 18, "WONK" 0, "opsz" 20;
   letter-spacing: -0.015em;
 }
+.stats__source {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+}
+
+/* image credit, sits quietly under a caption */
+.credit {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+}
+.portrait .credit { margin-top: 0.2rem; }
 
 /* ---------- footer ---------- */
 
