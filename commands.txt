@@ -1,0 +1,170 @@
+===========================================================================
+ UPDATING YOUR WEBSITE  --  harrybadawson.github.io
+===========================================================================
+
+The site is plain HTML and CSS. No build step, no dependencies. You edit a
+file, preview it locally, then merge to publish.
+
+Two branches:
+    draft   you work here. Nothing on this branch is public.
+    main    what GitHub Pages actually serves. Merging to it publishes.
+
+So nothing goes live until you explicitly merge. You cannot break the live
+site by editing on draft.
+
+
+---------------------------------------------------------------------------
+ 1.  THE BASIC LOOP
+---------------------------------------------------------------------------
+
+    cd ~/harrybadawson.github.io
+    git checkout draft          # make sure you're on draft
+    ./preview.sh                # starts a local server
+
+Open  http://localhost:4173  in a browser. That is served from your machine
+only -- nobody else can reach it. Edit a file, save, refresh the page.
+
+Press Ctrl+C in the terminal to stop the preview server.
+
+When a round of changes looks right, commit them:
+
+    git add -A
+    git commit -m "Short description of what changed"
+
+Then publish:
+
+    git checkout main && git merge draft && git push && git checkout draft
+
+That merges your reviewed work into main, pushes it live, and drops you back
+on draft. The live site updates within a minute or two.
+
+
+---------------------------------------------------------------------------
+ 2.  UPDATING YOUR METRICS  (the most common job)
+---------------------------------------------------------------------------
+
+The four numbers on the front page are hard-coded in about-me.html. Open it
+and find this block (around line 85):
+
+    <dl class="stats rise">
+      <div><dt>Publications</dt><dd>25</dd></div>
+      <div><dt>Peer reviewed</dt><dd>20</dd></div>
+      <div><dt>Citations</dt><dd>240</dd></div>
+      <div><dt>h index</dt><dd>8</dd></div>
+    </dl>
+
+Change the numbers between <dd> and </dd>. Nothing else.
+
+Get the current values from ADS:
+    https://ui.adsabs.harvard.edu/public-libraries/7NzicZAxSs22jv9Sv9Si5w
+    -> Select all -> Export -> Metrics
+
+Or do it from the terminal in one line (citations 240, h-index 8 here):
+
+    cd ~/harrybadawson.github.io
+    sed -i 's|<dt>Citations</dt><dd>[0-9]*</dd>|<dt>Citations</dt><dd>240</dd>|' about-me.html
+    sed -i 's|<dt>h index</dt><dd>[0-9]*</dd>|<dt>h index</dt><dd>8</dd>|' about-me.html
+
+Check it took:
+
+    grep -A4 '<dl class="stats' about-me.html
+
+IMPORTANT: these numbers also appear in your CV
+(content/publications.tex). Update both, or they will disagree -- and the
+site links straight to your ADS library, so a visitor can check.
+
+
+---------------------------------------------------------------------------
+ 3.  UPDATING THE CV PDF ON THE SITE
+---------------------------------------------------------------------------
+
+assets/harry-dawson-cv.pdf is a COPY, not a link. Rebuilding your CV does
+not update the site until you copy it across.
+
+Use the version WITHOUT the Vilnius post for the public site:
+
+    cp ~/phd/CV/harry-dawson-cv/CV_Harry_Dawson.pdf \
+       ~/harrybadawson.github.io/assets/harry-dawson-cv.pdf
+
+Confirm you copied the right one (should print 0):
+
+    pdftotext ~/harrybadawson.github.io/assets/harry-dawson-cv.pdf - | grep -ci vilnius
+
+See ~/phd/CV/harry-dawson-cv/commands.txt for how to rebuild the CV itself.
+
+
+---------------------------------------------------------------------------
+ 4.  THE FULL "I UPDATED MY CV" ROUTINE
+---------------------------------------------------------------------------
+
+Start to finish, after new papers or citations come in:
+
+    # --- 1. update the CV ---
+    cd ~/phd/CV/harry-dawson-cv
+    #    edit content/publications.tex          (metrics line)
+    #    edit content/appendix-publications.tex (per-paper \cited{} counts)
+
+    #    rebuild both versions
+    cp main.tex /tmp/main_backup.tex
+    sed -i 's/^\\showvilniustrue/\\showvilniusfalse/' main.tex
+    pdflatex -interaction=nonstopmode main.tex | grep "Output written"
+    cp main.pdf CV_Harry_Dawson.pdf
+    cp /tmp/main_backup.tex main.tex
+    pdflatex -interaction=nonstopmode main.tex | grep "Output written"
+
+    # --- 2. update the website ---
+    cd ~/harrybadawson.github.io
+    git checkout draft
+    cp ~/phd/CV/harry-dawson-cv/CV_Harry_Dawson.pdf assets/harry-dawson-cv.pdf
+    #    edit the four numbers in about-me.html
+
+    # --- 3. check it ---
+    ./preview.sh        # look at http://localhost:4173, then Ctrl+C
+
+    # --- 4. publish ---
+    git add -A
+    git commit -m "Update CV and metrics"
+    git checkout main && git merge draft && git push && git checkout draft
+
+
+---------------------------------------------------------------------------
+ 5.  WHICH FILE IS WHICH
+---------------------------------------------------------------------------
+
+  about-me.html    the real home page: bio, metrics, CV button
+  index.html       a tiny redirect to about-me.html.
+                   DO NOT DELETE -- GitHub Pages serves this at the bare
+                   domain, so removing it would 404 harrybadawson.github.io
+  research.html    research, HRD figure, the three-paper series
+  teaching.html    teaching and supervision
+  contact.html     contact details
+  style.css        all styling for every page
+  assets/          CV PDF, portrait, HRD figure
+
+The navigation bar is repeated in all four HTML files. If you rename or add
+a page you must edit the nav in each one.
+
+
+---------------------------------------------------------------------------
+ 6.  WHEN SOMETHING GOES WRONG
+---------------------------------------------------------------------------
+
+"I'm on the wrong branch"
+    git branch --show-current     # which branch am I on?
+    git checkout draft            # get back to the working branch
+
+"I want to throw away uncommitted changes"
+    git checkout -- .             # discards edits since the last commit
+
+"What have I changed?"
+    git status            # which files
+    git diff              # the actual changes
+
+"The live site hasn't updated"
+    GitHub Pages takes a minute or two. Then hard-refresh your browser
+    (Ctrl+Shift+R). Check the push actually worked:
+        git log main --oneline -3
+
+"preview.sh won't start"
+    Something else is probably on port 4173. Find and stop it:
+        lsof -i :4173
